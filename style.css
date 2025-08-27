@@ -1,0 +1,14 @@
+* {
+    background-image: url("imagens/GpAy.gif");
+}
+.jogo {
+    color: red;
+    text-align: center;
+    color: white;
+    font-family: Arial, Helvetica, serif;
+    font-size: 50px;
+    margin: 5px;
+    height: 100px;
+    width: 100%;
+    
+}
