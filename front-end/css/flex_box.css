@@ -51,6 +51,8 @@ body {
   width: 100%; /* Ocupa toda a largura disponível */
   height: auto; /* Altura ajustada ao conteúdo */
   padding: 20px; /* Espaço interno ao redor dos blocos */
+  justify-content: space-around; /* Espaço ao redor dos blocos */
+  border: 2px solid black; /* Borda preta de 2px */
 }
 
 /* Estilização dos blocos de texto */
