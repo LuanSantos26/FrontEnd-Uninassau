@@ -1,0 +1,76 @@
+/* Aplica box-sizing globalmente para que padding e borda sejam incluídos na largura total */
+* {
+  box-sizing: border-box;
+}
+
+/* Estiliza o fundo da página com uma imagem centralizada e que cobre toda a tela */
+body {
+  background-image: url("../imagens/GpAy.gif");
+  background-size: cover; /* Faz a imagem cobrir todo o fundo */
+  background-position: center; /* Centraliza a imagem */
+  background-repeat: no-repeat; /* Evita que a imagem se repita */
+}
+
+/* Container principal da página */
+.principal {
+  padding: 20px; /* Espaço interno ao redor do conteúdo */
+  margin: auto; /* Centraliza horizontalmente */
+  width: 100%; /* Ocupa toda a largura disponível */
+  height: auto; /* Altura ajustada ao conteúdo */
+  border: 3px solid black; /* Borda preta de 3px */
+  border-radius: 5px; /* Arredonda os cantos da borda */
+}
+
+/* Título da navegação ou cabeçalho */
+.tituloNav {
+  background-color: rgba(
+    255,
+    235,
+    205,
+    0.473
+  ); /* Cor de fundo com transparência */
+  border: 2px solid black; /* Borda preta de 2px */
+  padding: 40px; /* Espaço interno ao redor do texto */
+  text-align: center; /* Centraliza o texto */
+  font-size: 40px; /* Tamanho da fonte do título */
+  margin: 5px; /* Espaço externo entre elementos */
+}
+
+/* Container principal dos blocos de texto */
+.main {
+  margin: 0 auto; /* Centraliza horizontalmente */
+  background-color: rgba(
+    127,
+    255,
+    212,
+    0.356
+  ); /* Cor de fundo com transparência */
+  display: flex; /* Ativa Flexbox */
+  flex-direction: row; /* Alinha os filhos lado a lado */
+  gap: 20px; /* Espaço entre os blocos */
+  width: 100%; /* Ocupa toda a largura disponível */
+  height: auto; /* Altura ajustada ao conteúdo */
+  padding: 20px; /* Espaço interno ao redor dos blocos */
+}
+
+/* Estilização dos blocos de texto */
+.texto1,
+.texto2 {
+  border: 2px solid black; /* Borda preta de 2px */
+  padding: 20px; /* Espaço interno ao redor do texto */
+  width: 45%; /* Cada bloco ocupa 45% da largura */
+  overflow-wrap: break-word; /* Quebra palavras longas automaticamente */
+  background-color: white; /* Fundo branco para melhor leitura (opcional) */
+}
+
+/* Responsividade: quando a tela for menor que 768px */
+@media (max-width: 768px) {
+  .main {
+    flex-direction: column; /* Empilha os blocos verticalmente */
+  }
+
+  .texto1,
+  .texto2 {
+    width: 100%; /* Cada bloco ocupa toda a largura */
+  }
+}
