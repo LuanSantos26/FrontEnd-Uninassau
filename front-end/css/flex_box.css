@@ -45,10 +45,10 @@ body {
     0.473
   ); /* Cor de fundo com transparência */
   border: 2px solid black; /* Borda preta de 2px */
-  padding: 40px; /* Espaço interno ao redor do texto */
+  padding: 20px; /* Espaço interno ao redor do texto */
   text-align: center; /* Centraliza o texto */
   font-size: 40px; /* Tamanho da fonte do título */
-  margin: 5px; /* Espaço externo entre elementos */
+  margin: 5px auto; /* Espaço externo entre elementos */
 }
 
 /* ============================= */
@@ -57,7 +57,7 @@ body {
 
 /* Container principal dos blocos de texto */
 .main {
-  margin: 0 auto; /* Centraliza horizontalmente */
+  margin: 5px auto; /* Centraliza horizontalmente */
   background-color: rgba(
     127,
     255,
@@ -70,6 +70,8 @@ body {
   width: 100%; /* Ocupa toda a largura disponível */
   height: auto; /* Altura ajustada ao conteúdo */
   padding: 20px; /* Espaço interno ao redor dos blocos */
+  justify-content: space-around; /* Espaço ao redor dos blocos */
+  border: 2px solid black; /* Borda preta de 2px */
 }
 
 /* Estilização dos blocos de texto */
