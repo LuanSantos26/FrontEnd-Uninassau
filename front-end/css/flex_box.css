@@ -16,7 +16,7 @@ body {
 
 /* Estiliza o fundo da página com uma imagem centralizada e que cobre toda a tela */
 body {
-  background-image: url("../imagens/GpAy.gif");
+  background-image: url("../imagens/naruto.gif"); /* Caminho da imagem de fundo */
   background-size: cover; /* Faz a imagem cobrir todo o fundo */
   background-position: center; /* Centraliza a imagem */
   background-repeat: no-repeat; /* Evita que a imagem se repita */
@@ -97,6 +97,12 @@ body {
   line-height: 1.2; /* Espaçamento vertical ajustado */
   margin: 20px auto;
   color: white; /* Cor branca para melhor visibilidade */
+}
+.rodape {
+  text-align: center;
+  font-size: 14px;
+  color: white;
+  margin-top: 20px;
 }
 
 /* ============================= */
