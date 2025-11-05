@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jogo da Velha (Só JS)</title>
+</head>
+
+<body>
+  <script>
+    // Aguarda o documento HTML ser carregado
+    document.addEventListener('DOMContentLoaded', () => {
+
+      // --- 1. GERAÇÃO DO CSS ---
+      // Define todo o CSS como uma string
+      const estiloCSS = `
+                body {
+                    font-family: Arial, sans-serif;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    height: 100vh;
+                    background-color: #f0f0f0;
+                    margin: 0;
+                }
+                h1 { color: #333; }
+                #tabuleiro {
+                    display: grid;
+                    grid-template-columns: repeat(3, 100px);
+                    grid-template-rows: repeat(3, 100px);
+                    gap: 5px;
+                    background-color: #333;
+                    border: 5px solid #333;
+                }
+                .celula {
+                    width: 100px;
+                    height: 100px;
+                    background-color: #fff;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    font-size: 3rem;
+                    font-weight: bold;
+                    cursor: pointer;
+                    transition: background-color 0.2s;
+                }
+                .celula:hover { background-color: #eee; }
+                .celula.x { color: #007bff; }
+                .celula.o { color: #dc3545; }
+                #reiniciar {
+                    margin-top: 20px;
+                    padding: 10px 20px;
+                    font-size: 1rem;
+                    border: none;
+                    border-radius: 5px;
+                    background-color: #007bff;
+                    color: white;
+                    cursor: pointer;
+                }
+                #reiniciar:hover { background-color: #0056b3; }
+                #status {
+                    margin-top: 20px;
+                    font-size: 1.5rem;
+                    color: #444;
+                }
+            `;
+
+      // Cria o elemento <style>, define seu conteúdo e o anexa ao <head>
+      const styleElement = document.createElement('style');
+      styleElement.textContent = estiloCSS;
+      document.head.appendChild(styleElement);
+
+      // --- 2. GERAÇÃO DO HTML (DOM) ---
+      const body = document.body;
+
+      // Criar Título
+      const h1 = document.createElement('h1');
+      h1.textContent = 'Jogo da Velha (Gerado por JS)';
+      body.appendChild(h1);
+
+      // Criar Tabuleiro
+      const tabuleiro = document.createElement('div');
+      tabuleiro.id = 'tabuleiro';
+      body.appendChild(tabuleiro);
+
+      // Array para guardar a referência dos elementos das células
+      const celulasElements = [];
+
+      // Criar as 9 Células
+      for (let i = 0; i < 9; i++) {
+        const celula = document.createElement('div');
+        celula.classList.add('celula');
+        celula.setAttribute('data-cell-index', i); // Identificador
+        tabuleiro.appendChild(celula);
+        celulasElements.push(celula); // Guarda a referência
+      }
+
+      // Criar Status
+      const statusDisplay = document.createElement('h2');
+      statusDisplay.id = 'status';
+      body.appendChild(statusDisplay);
+
+      // Criar Botão Reiniciar
+      const reiniciarBtn = document.createElement('button');
+      reiniciarBtn.id = 'reiniciar';
+      reiniciarBtn.textContent = 'Reiniciar Jogo';
+      body.appendChild(reiniciarBtn);
+
+
+      // --- 3. LÓGICA DO JOGO ---
+      // (Esta parte é a mesma da resposta anterior,
+      // mas usa as variáveis que acabamos de criar)
+
+      let jogoAtivo = true;
+      let jogadorAtual = 'X';
+      let estadoDoJogo = ["", "", "", "", "", "", "", "", ""];
+
+      const mensagemVitoria = () => `Jogador ${jogadorAtual} venceu!`;
+      const mensagemEmpate = () => `O jogo empatou!`;
+      const mensagemVez = () => `É a vez do Jogador ${jogadorAtual}`;
+
+      const condicoesDeVitoria = [
+        [0, 1, 2], [3, 4, 5], [6, 7, 8], // Linhas
+        [0, 3, 6], [1, 4, 7], [2, 5, 8], // Colunas
+        [0, 4, 8], [2, 4, 6]  // Diagonais
+      ];
+
+      function handleCliqueCelula(evento) {
+        const celulaClicada = evento.target;
+        const indiceCelula = parseInt(celulaClicada.getAttribute('data-cell-index'));
+
+        if (estadoDoJogo[indiceCelula] !== "" || !jogoAtivo) {
+          return;
+        }
+
+        atualizarCelula(celulaClicada, indiceCelula);
+        verificarVencedor();
+      }
+
+      function atualizarCelula(celula, index) {
+        estadoDoJogo[index] = jogadorAtual;
+        celula.textContent = jogadorAtual;
+        celula.classList.add(jogadorAtual.toLowerCase());
+      }
+
+      function mudarJogador() {
+        jogadorAtual = jogadorAtual === 'X' ? 'O' : 'X';
+        statusDisplay.textContent = mensagemVez();
+      }
+
+      function verificarVencedor() {
+        let rodadaVencida = false;
+        for (let i = 0; i < condicoesDeVitoria.length; i++) {
+          const condicao = condicoesDeVitoria[i];
+          const a = estadoDoJogo[condicao[0]];
+          const b = estadoDoJogo[condicao[1]];
+          const c = estadoDoJogo[condicao[2]];
+
+          if (a === '' || b === '' || c === '') {
+            continue;
+          }
+          if (a === b && b === c) {
+            rodadaVencida = true;
+            break;
+          }
+        }
+
+        if (rodadaVencida) {
+          statusDisplay.textContent = mensagemVitoria();
+          jogoAtivo = false;
+          return;
+        }
+
+        if (!estadoDoJogo.includes("")) {
+          statusDisplay.textContent = mensagemEmpate();
+          jogoAtivo = false;
+          return;
+        }
+
+        mudarJogador();
+      }
+
+      function reiniciarJogo() {
+        jogoAtivo = true;
+        jogadorAtual = 'X';
+        estadoDoJogo = ["", "", "", "", "", "", "", "", ""];
+        statusDisplay.textContent = mensagemVez();
+
+        // Usamos o array 'celulasElements' que criamos lá em cima
+        celulasElements.forEach(celula => {
+          celula.textContent = "";
+          celula.classList.remove('x');
+          celula.classList.remove('o');
+        });
+      }
+
+      // --- 4. Conectar Event Listeners ---
+
+      // Adiciona o listener de clique a cada célula
+      celulasElements.forEach(celula => celula.addEventListener('click', handleCliqueCelula));
+
+      // Adiciona o listener ao botão
+      reiniciarBtn.addEventListener('click', reiniciarJogo);
+
+      // Inicia o jogo
+      statusDisplay.textContent = mensagemVez();
+    });
+  </script>
+</body>
+
+</html>
